@@ -1,0 +1,20 @@
+# inventory for localhost
+[all_hosts]
+127.0.0.1 ansible_connection=local
+
+
+--syntax-check --> to check syntax error
+ex - ansible-playbook --syntax-check playbook.yml
+
+# command to run ansbile
+ansible-playbook -i inventory.yml playbook.yml
+
+# --ask-become-pass will ask for password before executing playbook
+# add become: true for root privileges
+ansible-playbook --ask-become-pass playbook.yml
+
+# command to list all tags
+ansible-playbook 012_tags.yml --list-tags
+
+# command to install nginx only
+ansible-playbook 012_tags.yml -t i-nginx

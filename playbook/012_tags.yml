@@ -1,0 +1,23 @@
+- name: Instaling and starting nginx server
+  hosts: all_hosts
+
+  tasks:
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present
+    tags: i-nginx
+
+  - name: starting nginx service
+    service:
+      name: nginx
+      state: started
+      enabled: true
+    tags: ss-nginx
+
+
+# command to list all tags
+## ansible-playbook 012_tags.yml --list-tags
+
+# command to install nginx only
+## ansible-playbook 012_tags.yml -t i-nginx

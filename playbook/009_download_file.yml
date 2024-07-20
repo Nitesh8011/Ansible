@@ -1,0 +1,11 @@
+- name: Download file from internet
+  hosts: all_hosts
+  
+  tasks:
+  - name: Download file
+    get_url:
+      url: https://www.python.org/ftp/python/3.12.4/Python-3.12.4.tar.xz
+      dest: /home/personal
+      owner: personal
+      group: personal
+      mode: 777

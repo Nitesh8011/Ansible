@@ -1,0 +1,38 @@
+- name: playing with cronjob
+  hosts: all_hosts
+
+  tasks:
+  - name: creating cronjob
+    cron:
+      name: Test Cronjob
+      minute: 15
+      hour: 20
+      day: 15
+      month: "*"
+      weekday: "*"
+      user: personal
+      job: /tmp/test.sh
+
+  # - name: disable cronjob
+  #   cron: 
+  #     name: Test Cronjob
+  #     disabled: yes  
+
+  - name: env added in cronjob
+    cron:
+      name: VAR
+      env: yes
+      job: /tmp/test.sh
+      # insertbefore: <other_env_name>
+      # insertafter: <other_env_name>
+
+  - name: deleting cronjob
+    cron:
+      name: Test Cronjob
+      state: absent
+
+  - name: deleting env
+    cron:
+      name: VAR
+      env: yes
+      state: absent

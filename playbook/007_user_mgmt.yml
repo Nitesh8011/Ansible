@@ -1,0 +1,28 @@
+- name: user management
+  hosts: all_hosts
+  become: True
+
+  tasks:
+  - name: adding user and adding that user to group
+    user: 
+      name: test_user
+      comment: adding user with user name test_user
+      shell: /bin/bash
+      group: sudo
+    # groups:
+    #   - sudo
+    #   - docker
+
+  - name: add user with password
+    user:
+      name: test_user
+      update_password: always
+      # password: "{{ abcd1234 | password_hash('sha512') }}" # or can also pass encrypted password in single quotes
+      password: '$6$MdjMKiL18f0TlEs.$wLtbV.h4YOViRK03u0WL/dImbQ3.mdpAqpdPWVJQgk82bfFlwasJ85DTWnxq3Yv6Y8hGsOm.LSmpcuUqwE3zF1' # mkpasswd --method=sha-512
+
+
+  - name: deleting that user with data
+    user: 
+      name: test_user
+      state: absent
+      remove: yes # delete user directory as well

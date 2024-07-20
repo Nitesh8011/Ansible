@@ -1,0 +1,16 @@
+- name: create file, folder and change permission also deleting files and folder
+  hosts: all_hosts
+
+  tasks:
+  - name: creating file with permission
+    file:
+      path: /tmp/myfile.txt
+      state: touch # absent to delete file
+      owner: personal
+      group: personal
+      mode: u=rwx,g=rw,o=r
+
+  - name: creating directory with permission
+    file:
+      path: /tmp/myfolder
+      state: directory # absent to delete folder

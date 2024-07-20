@@ -1,0 +1,10 @@
+- name: pinging hosts
+  hosts: all_hosts
+
+  tasks:
+  - name: pinging all the hosts
+    ping:
+
+  - name: Print output
+    debug:
+      msg: "Alright!!"

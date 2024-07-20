@@ -1,0 +1,9 @@
+- name: run script with ansbile
+  hosts: all_hosts
+
+  tasks:
+  - name: run script
+    shell: ./test.sh >> test.log
+    args:
+      chdir: /tmp
+      creates: script.log

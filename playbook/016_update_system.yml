@@ -1,0 +1,14 @@
+- name: upgrading the system
+  hosts: all_hosts
+  become: True
+
+  tasks:
+  - name: Upgrading the system
+    apt:
+      name: '*'
+      state: latest
+
+  - name: install python
+    apt:
+      name: python3
+      state: present

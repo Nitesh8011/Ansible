@@ -1,0 +1,16 @@
+- name: using service as per linux distribution
+  hosts: all_hosts
+  become: True
+
+  tasks:
+  - name: install python in redhat
+    yum:
+      name: zip
+      state: present
+    when: ansible_os_family == "RedHat"  # "ansible localhost -m setup" to check system info
+        
+  - name: install python in ubuntu
+    apt:
+      name: zip
+      state: present
+    when: ansible_os_family == "Debian"

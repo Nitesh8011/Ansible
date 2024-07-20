@@ -1,0 +1,12 @@
+- name: copying file from server to remote with permission and backup
+  hosts: all_hosts
+
+  tasks:
+  - name: copying file from src to dest
+    copy:
+      src: /home/personal/myfile.txt
+      dest: /tmp
+      owner: personal
+      group: personal
+      mode: 421
+      backup: true

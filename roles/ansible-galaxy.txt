@@ -1,0 +1,10 @@
+# create role for httpd
+ansible-galaxy init httpd_setup
+
+
+# create role for fwd_service
+ansible-galaxy init fwd_service
+
+
+# command to run role-playbook
+ansible-playbook role_playbook.yml --ask-become-pass

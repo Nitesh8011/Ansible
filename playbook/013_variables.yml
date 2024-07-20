@@ -1,0 +1,22 @@
+---
+- name: using variables
+  hosts: all_hosts
+  become: True
+  vars:
+    app: nginx
+
+  tasks:
+    - name: installing service {{ app }}
+      apt:
+        name: "{{ app }}"
+        state: present
+      tags: 
+        - "i-{{ app }}"
+
+    - name: state service {{ app }}
+      service:
+        name: "{{ app }}"
+        state: started
+        enabled: true
+      tags:
+        - "ss-{{ app }}"

@@ -1,0 +1,23 @@
+- name: using loop condition
+  hosts: all_hosts
+  become: True
+  vars:
+    - apps: [nginx,vim,git]
+
+  tasks:
+  - name: creating multiple user
+    user: 
+      name: "{{ item }}"
+      comment: "creating user {{ item }}"
+      shell: /bin/bash
+    loop:
+      - Aman
+      - Amit
+      - Akash
+
+  - name: installing multiple application
+    apt:
+      name: "{{ apps }}"
+      state: present
+    tags: "i-{{ apps }}"
+    with_items: "{{ apps }}"

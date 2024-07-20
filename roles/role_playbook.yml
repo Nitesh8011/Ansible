@@ -1,0 +1,6 @@
+- name: Install httpd and Firewall changes
+  hosts: all_hosts
+
+  roles:
+    - httpd_setup
+    - fwd_service

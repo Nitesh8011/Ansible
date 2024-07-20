@@ -1,0 +1,45 @@
+# Install Nginx using Ansbile
+# Start and Enable Nginx (make it automatically up after system reboot)
+# Check the status of Nginx
+
+- name: Setup Nginx server on my severs list
+  hosts: myservers
+  become: True # for previliges
+  vars:
+    nginx_version: 1.12
+    base_path: /home/personal/
+
+  tasks:
+  - name: Install the latest verison of nginx server
+    command: amazon-linux-extras install nginx{{ nginx_version }}=latest -y
+    args:
+      creates: /sbin/nginx
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+
+  - name: enable nginx
+    service:
+      name: nginx
+      enabled: yes
+
+  - name: ensure nginx is at latest verison
+    command: nginx -v
+    register: nginx_version # register is module that capture the output of upper command
+
+  - name: print the version version
+    debug:
+      msg: "The current version of nginx is {{ nginx_version.stderr_lines[0] }}"
+
+  - name: ensure nginx is at the latest version
+    command: nginx -v
+
+  - name: get status of nginx insalled
+    command: systemctl status nginx
+
+  - name: copy file from master to hosts
+    copy:
+      src: "{{ base_path }}sample.txt"
+      dest: "{{ base_path }}"

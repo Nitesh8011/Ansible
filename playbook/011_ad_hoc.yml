@@ -1,0 +1,25 @@
+# ansible <host_pattern> -m <module> -a <module arguments> -u <username> -b
+
+# copy file from sorce to dest
+ansible all_host -m copy -a "src=/home/src/test.txt dest=/home/dest" mode=0777 -b --ask-become-pass
+
+
+# restart nginx service
+ansible 10.0.0.0 -m service -a "name=nginx state=reloaded"
+
+
+# run script file
+ansible 10.0.0.0 -m shell -a "/home/script/script.sh"
+
+
+# check system status
+
+## free memory
+ansible 10.0.0.0 -m shell -a "free -m"
+
+## free storage
+ansible 10.0.0.0 -m shell -a "df -h"
+
+
+# install tool
+ansible 10.0.0.0 -m apt -a "name=git state=present"

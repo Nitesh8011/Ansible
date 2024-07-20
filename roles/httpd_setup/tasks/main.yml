@@ -1,0 +1,23 @@
+---
+# tasks file for httpd_setup
+
+  - name: install httpd
+    apt:
+      name: "{{ httpd_package_name }}"
+      state: present
+    become: true
+
+
+  - name: placing html file
+    copy:
+      src: index.html
+      dest: "{{ html_file_path }}"
+    become: true
+
+  - name: start httpd service
+    service:
+      name: "{{ httpd_package_name }}"
+      state: started
+      enabled: yes
+    become: true
+
