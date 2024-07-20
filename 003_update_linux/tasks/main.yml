@@ -1,0 +1,37 @@
+---
+# tasks file for 003_update_linux
+- name: update all the packaged of redhat distribution with yum package manager
+  yum:
+    name: "*"
+    update_only: true
+    update_cacahe: true
+    state: latest
+  notify:
+    - reboot_machine
+  when:
+    - ansible_os_family == 'Redhat'
+    - ansible_pkg_mgr == 'yum'
+
+- name: update all the packaged of redhat distribution with dnf package manager
+  dnf:
+    name: "*"
+    update_only: true
+    update_cache: true
+    state: latest
+  notify:
+  - reboot_machine
+  when:
+    - ansible_os_family == 'Redhat'
+    - ansible_pkg_mgr == 'dnf'
+
+- name: update all the packaged of debina distribution
+  apt:
+    name: "*"
+    state: latest
+    force_apt_get: true
+    update_cache: true
+    cache_valid_time: 3600
+  notify:
+  - reboot_machine
+  when:
+    - ansible_os_family == 'Debian'

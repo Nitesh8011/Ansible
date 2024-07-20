@@ -1,0 +1,6 @@
+- name: updating linux packages
+  hosts: all
+  become: true
+
+  roles:
+    - ../003_update_linux

@@ -1,0 +1,7 @@
+---
+# handlers file for 003_update_linux
+  - name: reboot_machine
+    reboot:
+      connect_timeout: "{{ reboot_connection_timeout }}"
+      post_reboot_delay: "{{ reboot_post_reboot_delay }}"
+      reboot_timeout: "{{ reboot_timeout }}"
