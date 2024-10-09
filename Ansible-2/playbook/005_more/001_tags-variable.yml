@@ -1,0 +1,21 @@
+---
+- name: using tags and varibale in this playbook
+  hosts: db
+  become: true
+  vars:
+    app: nginx
+
+  tasks:
+    - name: install {{ app }}
+      apt:
+        name: "{{ app }}"
+        state: present
+      tags:
+        - "i-{{ app }}"
+
+    - name: start {{ app }} service
+      service:
+        name: "{{ app }}"
+        state: started
+      tags:
+        - "s-{{ app }}"

@@ -1,0 +1,14 @@
+# ping all hosts with SSH
+ansible -i inventory.ini -m ping all
+
+# ping all hosts with password
+ansible -i inventory.ini -m ping all --extra-vars 'ansible_password=54321'
+
+# ping db hosts with password
+ansible -i inventory.ini -m ping db --extra-vars 'ansible_password=54321'
+
+# ping app hosts with password
+ansible -i inventory.ini -m ping app
+
+# check syntax
+ansible-playbook --syntax-check playbook.yml

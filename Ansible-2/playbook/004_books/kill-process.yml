@@ -1,0 +1,27 @@
+---
+- name: kill running process
+  hosts: db
+  become: true
+
+  tasks:
+    - name: running process
+      ignore_errors: yes
+      shell: "ps -few | grep nginx | awk '{print $2}'"
+      register: running_processes
+
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: nginx_processes
+
+    - name: Force kill stuck processes
+      ignore_errors: yes
+      shell: "kill -9 {{ item }}"
+      with_items: "{{ nginx_processes.results | select('failed') | map(attribute='item') | list }}"

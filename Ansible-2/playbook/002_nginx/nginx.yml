@@ -1,0 +1,27 @@
+---
+- name: install nginx
+  hosts: all
+  become: true
+
+  tasks:
+  - name: install nginx
+    apt:
+      name: nginx
+      update_cache: true
+      state: absent
+
+  - name: copy html file
+    copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    loop:
+      - src: index.html
+        dest: /var/www/html
+      - src: 4346259.jpg
+        dest: /var/www/html
+
+  - name: starting nginx service
+    service:
+      name: nginx
+      state: restarted
+      enabled: false

@@ -1,0 +1,22 @@
+---
+- name: install httpd and copy html file
+  hosts: all
+  become: true
+
+  tasks:
+    - name: install httpd
+      apt:
+        name: apache2
+        state: absent
+        update_cache: yes
+
+
+    - name: copy html file
+      copy:
+        src: index.html
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: '644'
+
+# ansible-playbook -i /home/nitesh/Documents/Documents_personal/ansible/inventory.ini httpd-install/http-install.yml

@@ -1,0 +1,9 @@
+---
+# tasks file for singleurl
+- name: check url is reachable or not
+  uri:
+    url: "{{ url }}"
+
+- name: print the {{ url }} is working
+  debug:
+    msg: "{{ url }} is working and reachable"

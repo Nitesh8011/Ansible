@@ -1,0 +1,5 @@
+---
+- name: test the url reachablity
+  hosts: all
+  roles:
+   - singleurl

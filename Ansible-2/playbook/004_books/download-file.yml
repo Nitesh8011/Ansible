@@ -1,0 +1,19 @@
+---
+- name: download file from internet and unarchive it
+  hosts: all
+  become: true
+
+  tasks:
+    - name: download python tar file
+      get_url:
+        url: https://www.python.org/ftp/python/3.12.4/Python-3.12.4.tar.xz
+        dest: /tmp
+        owner: ubuntu
+        group: ubuntu
+        mode: 777
+
+    - name: unarchive python
+      unarchive: 
+        src: /tmp/Python-3.12.4.tar.xz
+        dest: /usr/local/bin
+        remote_src: yes

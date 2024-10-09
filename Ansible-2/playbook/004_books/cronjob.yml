@@ -1,0 +1,17 @@
+---
+- name: add cronjob
+  hosts: app
+  become: true
+
+  tasks:
+    - name: create cronjob
+      cron:
+        name: run script.sh file
+        minute: "*"
+        hour: "*"
+        day: "10"
+        month: "*"
+        weekday: "*"
+        user: root
+        job: /usr/local/bin/script.sh
+        state: absent

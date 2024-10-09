@@ -1,0 +1,39 @@
+---
+- name: add user to run script
+  become: true
+  hosts: app
+
+  tasks:
+  - name: add user
+    user:
+      name: script_user
+      comment: user added to run script
+      shell: /bin/bash
+      group: ubuntu
+
+  - name: copy script file
+    copy:
+      src: script.sh
+      dest: /usr/local/bin
+      owner: script_user
+      group: ubuntu
+      mode: u=rwx,g=r,o=r
+
+  - name: create script log file
+    file:
+      path: ~/script.log
+      state: touch
+      owner: script_user
+      group: ubuntu
+      mode: u=wrx,g=r,o=r
+
+  - name: run script file
+    shell: ./script.sh >> ~/script.log
+    args:
+      chdir: /usr/local/bin
+      creates: ~/script.log
+    register: script_output
+
+  - name: debug script output
+    debug:
+      var: script_output

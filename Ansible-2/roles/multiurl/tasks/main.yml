@@ -1,0 +1,5 @@
+---
+# tasks file for multiurl
+- name: print all the monitoring tasks that has been completed
+  debug:
+    msg: "we now have good confidence on what is role and what is dummy role and what is meta depedencies"

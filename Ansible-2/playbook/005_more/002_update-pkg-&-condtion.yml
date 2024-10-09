@@ -1,0 +1,17 @@
+---
+- name: updating packages on bases on linux distribution
+  hosts: all
+  become: true
+
+  tasks:
+    - name: update package for Ubuntu
+      apt:
+        name: "*"
+        state: latest
+      when: ansible_os_family == "Debian"
+
+    - name: update package for Redhat
+      yum:
+        name: "*"
+        state: latest
+      when: ansible_os_family == "RedHat"

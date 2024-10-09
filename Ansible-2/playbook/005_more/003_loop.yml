@@ -1,0 +1,24 @@
+---
+- name: using loop to create multiple user
+  hosts: app
+  become: true
+  vars:
+    - apps: [nginx, vim, git]
+
+  tasks:
+    - name: creating multiple user
+      user:
+        name: "{{ item }}"
+        comment: "created {{ item }} user"
+        state: absent
+        remove: yes
+      loop:
+        - Aman
+        - Akash
+        - Atul
+
+    - name: installing multiple application
+      apt:
+        name: "{{ apps }}"
+        state: present
+      with_items: "{{ apps }}"

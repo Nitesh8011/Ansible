@@ -1,0 +1,30 @@
+# to reboot all server -f to increase count, -u to connect as different username default uses your user account
+# --become for root user and add '-k' for password
+root:
+  - ansible app -a "/sbin/reboot" --become # SSH
+  - ansible db -a "/sbin/reboot" --become -k # password
+
+managing files:
+  # copy file from local to remote
+  - ansible db -m copy -a "src=commands.txt dest=/tmp"
+  # changing ownership of files
+  - ansible app -m file -a "dest=/tmp/commands.txt mode=400 owner=ubuntu group=ubuntu state=directory"
+  # deleting file
+  - ansible app -m file -a "dest=/path/of/dir state=absent"
+
+managing packages:
+  - ansible db -m apt -a "name=nginx state=present"
+  - ansible app -m yum -a "name=nginx state=latest"
+
+managing users and group:
+  - ansible all -m user -a "name=foo password=<password>"
+  - ansible all -m user -a "name=foo state=absent"
+
+managing service:
+  - ansible all -m apt -a "name=httpd state=started/stopped/restarted"
+
+gathering facts:
+  # info about system
+  - ansible all -m setup
+  # check mode
+  - ansible all -m copy -a "src=/tmp/file.txt dest=/tmp/file.txt" -c

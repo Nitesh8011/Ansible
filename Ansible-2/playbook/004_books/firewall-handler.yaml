@@ -1,0 +1,19 @@
+---
+- name: filewall added
+  hosts: app
+  become: true
+
+  tasks:
+    - name: adding fairewall on port 80
+      firewalld:
+        port: 80/tcp
+        premanent: true
+        state: enabled
+      notify:
+        - Reload firewalld
+
+      handlers:
+        - name: Reload firewalld
+          service:
+            name: firewalld
+            state: reloaded
