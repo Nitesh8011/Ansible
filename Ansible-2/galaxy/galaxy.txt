@@ -1,0 +1,14 @@
+To import role from ansible galaxy
+ansible-galaxy role install <role_name>
+
+roles will be saved in ~/.ansible/roles
+
+# How to use imported roles
+make one role book and mention that imported role - check galaxy.yml
+
+Then Run:
+ansible-playbook -i /home/nitesh/Documents/Documents_personal/ansible/inventory.ini galaxy.yml
+
+
+Push Role in Ansible-galaxy
+ansible-galaxy import <git_username> <repo_name> --token <token>

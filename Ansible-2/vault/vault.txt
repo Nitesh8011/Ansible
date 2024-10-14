@@ -1,0 +1,5 @@
+ansible-galaxy collection install amazon.aws
+
+1. openssl rand -base64 2048 > vault.pass
+2. ansible-vault create group_vars/all/past.yml --vault-password-file vault.pass
+3. ansible-playbook vault.yml --vault-password-file vault.pass

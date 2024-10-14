@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  # gather_facts: no
+
+  tasks:
+    - name: Shutdown EC2 Ubuntu server
+      command: /sbin/shutdown now
+      when: ansible_facts['os_family'] == "RedHat"
+    # - name: ping
+    #   ping: 

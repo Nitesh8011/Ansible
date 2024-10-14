@@ -1,0 +1,6 @@
+vault-id  is a feature in Ansible that allows you to manage multiple Ansible Vaults, each with its own password or encryption key, within the same project. This is useful when you need to handle different sets of encrypted data with different levels of access, or when you want to gradually rotate secrets without affecting other encrypted data.
+
+
+Create vault with vault-id
+ansible-vault create --vault-id dev@promt dev_secret.yml
+ansible-vault create --vault-id prod@promt prod_secret.yml

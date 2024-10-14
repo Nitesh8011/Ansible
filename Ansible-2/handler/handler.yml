@@ -1,0 +1,30 @@
+---
+- name: Using handler to skip unchanged tasks
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Copy file to /var/www/html
+      copy:
+        src: "{{ item }}"
+        dest: /var/www/html/
+        owner: root
+        group: root
+        mode: 0644
+      loop:
+        - index.html
+        - 4346259.jpg
+      notify:
+        - restart nginx
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

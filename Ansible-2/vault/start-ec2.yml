@@ -1,0 +1,23 @@
+--- 
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: starting ec2
+    amazon.aws.ec2_instance:
+      name: "{{ item.name }}"
+      vpc_subnet_id: subnet-075ef40e4e28d239b
+      instance_type: t2.micro
+      security_group: sg-021245b72e7808e4f
+      region: ap-south-1
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      key_name: "aws-ansible"
+      network:
+        assign_public_ip: true
+      image_id: "{{ item.image_id }}"
+      tags:
+        server: "{{ item.name }}"
+    loop:
+      - { name: "ansible-ubuntu-1", image_id: "ami-0dee22c13ea7a9a67" }
+      - { name: "ansible-ubuntu-2", image_id: "ami-0dee22c13ea7a9a67"}
+      - { name: "ansible-amazon", image_id: "ami-078264b8ba71bc45e"}

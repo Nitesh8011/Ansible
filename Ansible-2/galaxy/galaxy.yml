@@ -1,0 +1,6 @@
+---
+- name: installing docker in db server
+  become: true
+  hosts: db
+  roles:
+    - <role_name>
